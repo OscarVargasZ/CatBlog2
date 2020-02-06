@@ -53,3 +53,5 @@ end
 gem 'tzinfo-data'
 # gema de html en slim
 gem "slim-rails"
+
+gem "device"
