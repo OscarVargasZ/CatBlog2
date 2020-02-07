@@ -29,8 +29,11 @@ class ArticlesController < ApplicationController
       def update
         @article = Article.find(params[:id])
      
-        if @article.update(article_params)
+        if @article.update(article_params) && 
           redirect_to @article
+        elsif @article.user_id==current_user.id
+          #se debe agregar aqui una pantalla de error
+          render 'edit'
         else
           render 'edit'
         end
@@ -38,9 +41,12 @@ class ArticlesController < ApplicationController
      
       def destroy
         @article = Article.find(params[:id])
-        @article.destroy
-     
-        redirect_to welcome_index_path
+        if @article.user_id==current_user.id
+          @article.destroy
+          redirect_to welcome_index_path
+        else
+          redirect_to welcome_index_path
+        end
       end
      
       private
