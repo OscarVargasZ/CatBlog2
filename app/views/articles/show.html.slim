@@ -1,0 +1,27 @@
+
+p
+  strong Title:
+  = @article.title
+ 
+p
+  strong Text:
+  = @article.text
+ 
+= link_to 'Back', welcome_index_path
+/ h2 Comments
+/ = render @article.comments
+ 
+/ h2 Add a comment:
+/ = form_with(model: [ @article, @article.comments.build ], local: true) do |form|
+/   p
+/     = form.label :commenter 
+/     = form.text_field :commenter
+/   p
+/     = form.label :body 
+/     = form.text_area :body 
+
+/   p
+/     = form.submit 
+ 
+/ = link_to 'Edit', edit_article_path(@article)
+
