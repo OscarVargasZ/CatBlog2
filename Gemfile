@@ -55,3 +55,5 @@ gem 'tzinfo-data'
 gem "slim-rails"
 
 gem "devise"
+
+gem 'bootstrap', '~> 4.4.1'
