@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
       def update
         @article = Article.find(params[:id])
      
-        if @article.update(article_params) && 
+        if @article.update(article_params) 
           redirect_to @article
         elsif @article.user_id==current_user.id
           #se debe agregar aqui una pantalla de error
