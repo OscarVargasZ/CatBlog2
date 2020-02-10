@@ -55,3 +55,12 @@ gem 'tzinfo-data'
 gem "slim-rails"
 
 gem "devise"
+
+gem 'bootstrap', '~> 4.4.1'
+
+gem 'awesome_print'
+
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
