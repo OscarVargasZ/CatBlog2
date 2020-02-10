@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
         @comment = @article.comments.find(params[:id])
     end
     def update
-        @article = Article.find(params[:id])
+        @article = Article.find(params[:article_id])
         @comment = @article.comments.find(params[:id])
         if @article.comment.user_id == current_user.id
                 if @comment.update(comment_params) 
