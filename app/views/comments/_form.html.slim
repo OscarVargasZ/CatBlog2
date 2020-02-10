@@ -1,7 +1,15 @@
 
 = form_with model: ([@article, @comment]), local: true do |form| 
     div 
-
+        - if @comment.errors.any? 
+            div id="error_explanation"
+            h2
+                =  pluralize(@comment.errors.count, "error")
+                    this article from being saved:
+            ul
+                = @comment.errors.full_messages.each do |msg|
+                    p  prohibited
+                    li = msg
     div
         p
             = form.label :commenter 
