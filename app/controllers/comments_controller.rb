@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
 
     private
     def comment_params
-        params.require(:comment).permit(:commenter, :body)
+        params.require(:comment).permit(:body)
     end
     def article_comment_load
         @article = Article.find(params[:article_id])
