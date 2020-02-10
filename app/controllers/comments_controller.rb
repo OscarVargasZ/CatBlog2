@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
     before_action :article_comment_load, except: [:create , :show]
-    before_action :authorization, only: [:edit]
+    before_action :authorization, only: [:edit, :destroy]
     def create
         @article = Article.find(params[:article_id])
         @comment = @article.comments.create(comment_params)
@@ -9,9 +9,7 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-        if(@comment.user_id == current_user.id)
-            @comment.destroy
-        end
+        @comment.destroy
         redirect_to article_path(@article)
     end
     def edit
@@ -35,7 +33,8 @@ class CommentsController < ApplicationController
     end
     def authorization
         if(@comment.user_id != current_user.id)
-            redirect_to '/welcome/index'
+            flash[:notice] = "Usted no es dueño de este comentario"
+            redirect_to article_path(@article)
         end
     end
 end

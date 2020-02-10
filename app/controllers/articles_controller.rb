@@ -1,18 +1,15 @@
 class ArticlesController < ApplicationController
-    def _index
-        @articles = Article.all
-      end
-    
+    before_action :article_load, except: [ :create, :new]
+    before_action :authorization, only: [:edit,:destroy, :update]    
       def new
         @article = Article.new
       end
 
       def show
-        @article = Article.find(params[:id])
         @comment = Comment.new
       end
+
       def edit
-        @article = Article.find(params[:id])
       end
      
       def create
@@ -27,7 +24,6 @@ class ArticlesController < ApplicationController
       end
      
       def update
-        @article = Article.find(params[:id])
         if(@article.user_id == current_user.id)
           if @article.update(article_params) 
             redirect_to @article
@@ -40,9 +36,7 @@ class ArticlesController < ApplicationController
         
         end
       end
-     
       def destroy
-        @article = Article.find(params[:id])
         if @article.user_id==current_user.id
           @article.destroy
           redirect_to welcome_index_path
@@ -55,4 +49,13 @@ class ArticlesController < ApplicationController
         def article_params
           params.require(:article).permit(:title, :text)
         end
+        def article_load
+          @article = Article.find(params[:id])
+        end
+        def authorization
+          if(@article.user_id != current_user.id)
+            flash[:notice] = "Usted no es dueño de este articulo"
+            redirect_to '/welcome/index'
+          end
+      end
 end
