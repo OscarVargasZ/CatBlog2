@@ -1,0 +1,13 @@
+p
+    = comment.user.email
+    | : 
+    = comment.body
+    | : 
+    - if comment.user_id == current_user.id
+        = link_to 'edit',  edit_article_comment_path(comment.article.id, comment.id)
+    |   
+    - if comment.user_id == current_user.id
+
+        = link_to 'delete', [comment.article, comment],
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' }

@@ -1,0 +1,7 @@
+= form_with model: ([@article, @comment]), local: true do |form|
+    div
+        p 
+            = form.label :body 
+            = form.text_area :body 
+        p
+            = form.submit
