@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
     before_action :article_comment_load, except: [:create , :show]
-    before_action :authorization, except: [:create,:show]
+    before_action :authorization, only: [:edit]
     def create
         @article = Article.find(params[:article_id])
         @comment = @article.comments.create(comment_params)
@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
     end
     def authorization
         if(@comment.user_id != current_user.id)
-            redirect_to 'welcome/home'
+            redirect_to '/welcome/index'
         end
     end
 end

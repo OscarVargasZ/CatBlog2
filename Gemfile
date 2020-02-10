@@ -58,6 +58,7 @@ gem "devise"
 
 gem 'bootstrap', '~> 4.4.1'
 
+gem 'awesome_print'
 
 group :development do
   gem "better_errors"
