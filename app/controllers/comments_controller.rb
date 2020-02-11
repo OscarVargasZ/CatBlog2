@@ -1,20 +1,29 @@
 class CommentsController < ApplicationController
+    include Pundit
+    
     before_action :article_comment_load, except: [:create , :show]
-    before_action :authorization, only: [:edit, :destroy]
+    before_action :authenticate_user!, only: [:edit, :create, :update, :destroy]
+    before_action :authorizer, except: [:create, :new]
+    
     def create
+        authorize Comment
         @article = Article.find(params[:article_id])
         @comment = @article.comments.create(comment_params)
         @comment.update(user_id:current_user.id)
         redirect_to article_path(@article)
     end
+    
 
     def destroy
         @comment.destroy
         redirect_to article_path(@article)
     end
-    def edit
 
+
+    def edit
     end
+
+
     def update     
         if @comment.update(comment_params) 
             redirect_to article_path(@article)
@@ -23,6 +32,7 @@ class CommentsController < ApplicationController
         end
     end
 
+    
     private
     def comment_params
         params.require(:comment).permit(:body)
@@ -31,10 +41,7 @@ class CommentsController < ApplicationController
         @article = Article.find(params[:article_id])
         @comment = @article.comments.find(params[:id])
     end
-    def authorization
-        if(@comment.user_id != current_user.id)
-            flash[:notice] = "Usted no es dueño de este comentario"
-            redirect_to article_path(@article)
-        end
+    def authorizer
+        authorize @comment
     end
 end
