@@ -1,7 +1,7 @@
 
 h1 Listing Articles
-= link_to 'New article', new_article_path
-
+- if userlogin?
+    = link_to 'New article', new_article_path
 
 table
   - @articles.reverse.each do |f|
@@ -20,11 +20,13 @@ table
         td
           = link_to 'Show', article_path(f) 
         td
-
-          = link_to 'Edite', edit_article_path(f)
+          - if userlogin?
+            - if f.user_id == current_user.id
+              = link_to 'Edite', edit_article_path(f)
         td
-          - if f.user_id == current_user.id
-            = link_to 'Destroy', article_path(f),
+          - if userlogin?
+            - if f.user_id == current_user.id
+              = link_to 'Destroy', article_path(f),
                 method: :delete,
                 data: { confirm: 'Are you sure?' }
 end 
