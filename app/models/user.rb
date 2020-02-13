@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  rolify:before_add => :before_add_method
+  rolify :before_add => :before_add_method
   has_many :articles, dependent: :destroy
   has_many :comments
   # Include default devise modules. Others available are:

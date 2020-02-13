@@ -8,7 +8,7 @@ p
             = link_to 'edit',  edit_article_comment_path(comment.article.id, comment.id)
     |   
     - if userlogin?
-        - if comment.user_id == current_user.id
+        - if (comment.user_id == current_user.id || current_user.has_role?(:admin))
             = link_to 'delete', [comment.article, comment],
                         method: :delete,
                         data: { confirm: 'Are you sure?' }
