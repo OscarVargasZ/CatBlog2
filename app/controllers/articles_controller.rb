@@ -4,15 +4,16 @@ class ArticlesController < ApplicationController
 #endregion
 
 #declaracion de acciones, pre ejecucion de las llamadas del controlador
-    before_action :article_load, except: [ :create, :new] #carga un articulo segun id
-    before_action :authenticate_user!, only: [:edit, :create, :update, :destroy] #llamada divese para authenticar el usuario
-    before_action :authorizer, except: [:create, :new] #se encarga de confirmar las credenciales de un usuario
+    before_action :article_load, except: [ :create, :new] #carga un articulo segun id antes de que se realicen los methodos
+    before_action :authenticate_user!, only: [:edit, :create, :update, :destroy] #llamada divese para authenticar el usuario antes de que se realicen los methodos
+    before_action :authorizer, except: [:create, :new] #se encarga de confirmar las credenciales de un usuario antes de que se realicen los methodos
 #endregion
 
 #controller call
       def new     
-        authorize Article
-        @article = Article.new
+        authorize Article #se autoriza utilizando el modelo article como objeto
+        @article = Article.new #le entrega un nuevo articulo del modelo article a una variable global, la cual se 
+                                # encontrara en todo el ambientte siempre que no redirecciones a otro controlador
       end
 
       def show
@@ -49,7 +50,7 @@ class ArticlesController < ApplicationController
 
 #private method
     private
-      def article_params
+      def article_params  #esta funcion se encarga de especificar que datos se pueden entregar por parametros
         params.require(:article).permit(:title, :text)
       end
       def article_load

@@ -1,0 +1,20 @@
+    div id="user_nav"
+        -if current_user
+            | Logged in as 
+            = current_user.email
+            = link_to "Log out", destroy_user_session_path , :method=>'delete'
+        -else
+            = link_to "Sign up", new_user_registration_path
+            /  &nbsp; para realizar un espacio
+            | &nbsp; 
+            = link_to "log in", new_user_session_path
+        -if current_user
+            .float-left
+            | &nbsp;
+            
+            = link_to "notifications", destroy_user_session_path
+
+
+    
+    -flash.each do |name, msg|
+        = content_tag :div, msg, :id => "flash_#{name}"
