@@ -13,7 +13,7 @@ class ArticlePolicy <  ApplicationPolicy
     end
   
     def update?
-        user.present? && article.user == user
+        user.present? && (article.user == user || user.has_role?(:admin)) 
     end
   
     def edit?
@@ -21,7 +21,7 @@ class ArticlePolicy <  ApplicationPolicy
     end
   
     def destroy?
-      user.present? && article.user == user
+      user.present? && (article.user == user || user.has_role?(:admin)) 
     end
   
     private

@@ -4,7 +4,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def update?
-      user.present? && comment.user == user
+      user.present? && (comment.user == user || user.has_role?(:admin)) 
   end
 
   def edit?
@@ -12,7 +12,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.present? && comment.user == user
+    user.present? && (comment.user == user || user.has_role?(:admin)) 
   end
 
   private
