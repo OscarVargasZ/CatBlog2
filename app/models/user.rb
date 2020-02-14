@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  include AASM
+
+  aasm do
+  end
   rolify :before_add => :before_add_method
   has_many :articles, dependent: :destroy
   has_many :comments

@@ -64,3 +64,5 @@ gem 'pundit'
 gem 'rolify'
 #    Testing
 gem 'rspec-rails'
+
+gem 'aasm'
