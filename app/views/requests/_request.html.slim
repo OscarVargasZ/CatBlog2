@@ -1,27 +1,21 @@
-.col-sm    
+.col-sm
+    h1 Solicitudes     
     table
-        - @articles.reverse.each do |f|
-            tr
-            th Title
-            th Text
-            th fecha
-            th colspan="3" 
-            tr
-                td 
-                    = f.title 
-                td
-                    = f.text 
-                td
-                    = f.created_at
-                td
-                = link_to 'Show', article_path(f) 
-            td
-                - if userlogin?
-                    - if f.user_id == current_user.id
-                        = link_to 'Edite', edit_article_path(f)
-            td
-                - if userlogin?
-                    - if (f.user_id == current_user.id || current_user.has_role?(:admin))
-                        = link_to 'Destroy', article_path(f),
-                            method: :delete,
-                            data: { confirm: 'Are you sure?' }
+        - @requests.each do |f|
+            - if f.pending_approval?    
+                tr
+                th id
+                th tipo
+                th colspan="3" 
+                tr
+                    td 
+                        = f.id
+                    td
+                        = f.type_request
+                    td
+                        - if userlogin?
+                            - if (f.user_id == current_user.id || current_user.has_role?(:admin))
+                                = link_to 'Aceptar', '/request/accept/' + f.id.to_s, method: :patch
+                            |
+                            - if (f.user_id == current_user.id || current_user.has_role?(:admin))
+                                = link_to 'Rechazar', '/request/reject/' + f.id.to_s, method: :patch
