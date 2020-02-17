@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
     before_action :authorizer, except: [:create, :new] #se encarga de confirmar las credenciales de un usuario antes de que se realicen los methodos
 #endregion
 
-#controller call
+#method
       def new     
         authorize Article #se autoriza utilizando el modelo article como objeto
         @article = Article.new #le entrega un nuevo articulo del modelo article a una variable global, la cual se 
@@ -27,7 +27,8 @@ class ArticlesController < ApplicationController
       def create
         @article = Article.new(article_params)
         @article.update(user_id:current_user.id)
-        if @article.save
+        @request = Request.new(article_id:@article.id)
+        if @article.save && @request.save
           redirect_to welcome_index_path
         else
           render 'new'
