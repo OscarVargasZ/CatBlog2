@@ -1,0 +1,21 @@
+.navbar-dark.bg-dark
+    .navbar-brand 
+        -if current_user
+            | Logged in as 
+            = current_user.email
+            = link_to "Log out", destroy_user_session_path , :method=>'delete'
+        -else
+            = link_to "Sign up", new_user_registration_path
+            /  &nbsp; para realizar un espacio
+            | &nbsp; 
+            = link_to "log in", new_user_session_path
+        -if current_user
+            .float-left
+            | &nbsp;
+            - if ( current_user.has_role?(:editor)|| current_user.has_role?(:admin))
+                = link_to "Solicitudes", request_path
+
+
+    
+        -flash.each do |name, msg|
+            = content_tag :div, msg, :id => "flash_#{name}"

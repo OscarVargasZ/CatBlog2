@@ -9,6 +9,7 @@ p
  
 = render @article.comments
 p
-    = render 'comments/form'
+  - if userlogin?
+      = render 'comments/form'
 = link_to 'Back', welcome_index_path
 
