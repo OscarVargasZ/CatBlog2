@@ -56,13 +56,12 @@ gem 'awesome_print'
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'rspec-rails'
 end
 #por utilizar
 #    permisos
 gem 'pundit'
 #    rolles
 gem 'rolify'
-#    Testing
-gem 'rspec-rails'
-
+#    Estado
 gem 'aasm'
