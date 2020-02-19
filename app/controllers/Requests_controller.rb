@@ -10,7 +10,6 @@ class RequestsController < ApplicationController
         before_action :authenticate_user!, only: [:edit, :create, :update, :destroy]
         before_action :authorizer
     #
-
     #method
         def index
         end
@@ -38,7 +37,7 @@ class RequestsController < ApplicationController
                 redirect_to welcome_index_path
             end
         end
-        #
+    #
      #private method
         private
         def request_load

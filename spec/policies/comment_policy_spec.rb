@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ComentsPolicy, type: :policy do
+RSpec.describe CommentPolicy, type: :policy do
   let(:user) { User.new }
 
   subject { described_class }
