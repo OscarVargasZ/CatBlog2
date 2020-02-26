@@ -1,5 +1,6 @@
 class Comment < ApplicationRecord
   include AASM
+  aasm do
     state :active, initial: true
     # state :accepted
     state :inactive
@@ -11,7 +12,6 @@ class Comment < ApplicationRecord
     event :activate do
       transitions from: :activate, to: :active
     end
-  aasm do
   end
   belongs_to :article
   has_many :requests, dependent: :destroy
