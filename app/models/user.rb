@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include AASM
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   aasm do
     state :active, initial: true
     # state :accepted
@@ -34,6 +35,8 @@ class User < ApplicationRecord
   has_many :comments
   has_many :requests, dependent: :destroy
 
+
+  validates_format_of :email, with: VALID_EMAIL_REGEX
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
