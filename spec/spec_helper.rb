@@ -17,6 +17,9 @@
 # Aasm
 require "aasm/rspec"
 require "pundit/rspec"
+require 'pundit/matchers'
+
+
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

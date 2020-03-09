@@ -8,6 +8,7 @@ RSpec.describe Article, type: :model do
     end
     context 'request status change' do
         let(:article) { FactoryBot.build(:article) }
+        
         it {expect(article).to transition_from(:inactive).to(:active).on_event(:activate)}
         it {expect(article).to transition_from(:active).to(:inactive).on_event(:inactived)} 
     end

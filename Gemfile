@@ -32,6 +32,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'pundit-matchers'
 end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -69,3 +70,8 @@ gem 'rolify'
 #    Testing
 
 gem 'aasm'
+
+gem 'activeadmin'
+# Plus integrations with acttiveadmin:
+gem 'cancancan'
+gem 'draper'
