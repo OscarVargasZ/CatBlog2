@@ -21,7 +21,7 @@ class ArticlesController < ApplicationController
         @comment = Comment.new
       end
       
-      def edit
+      def edit  
       end
 
       def create
