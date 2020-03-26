@@ -1,28 +1,23 @@
-require 'spec_helper'
-require 'pundit/rspec'
-
 RSpec.describe CommentPolicy, type: :policy do
   let(:user) { User.new }
+  subject { described_class.new(user, article) }
 
-  subject { described_class }
+  let(:article) { Article.create }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context 'not user' do
+    let(:user) { nil }
+
+    it { is_expected.to permit_action(:show) }
+    it { is_expected.to forbid_action(:destroy) }
   end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context 'normal user' do
+    let(:user) { User.create(administrator: true) }
+    it { is_expected.to permit_actions([:show, :destroy]) }
   end
 
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context 'being an administrator' do
+    let(:user) { User.create(administrator: true) }
+    it { is_expected.to permit_actions([:show, :destroy]) }
   end
 end

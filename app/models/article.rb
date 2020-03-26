@@ -1,5 +1,11 @@
 class Article < ApplicationRecord
   include AASM
+#
+  has_many :comments, dependent: :destroy
+  has_many :requests, dependent: :destroy
+  belongs_to :user
+#
+#aasm
   aasm do
     state :active
     # state :accepted
@@ -13,8 +19,5 @@ class Article < ApplicationRecord
       transitions from: :inactive, to: :active
     end
   end
-
-  has_many :comments, dependent: :destroy
-  has_many :requests, dependent: :destroy
-  belongs_to :user
+#
 end
