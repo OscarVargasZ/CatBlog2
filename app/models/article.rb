@@ -13,8 +13,7 @@ class Article < ApplicationRecord
       transitions from: :inactive, to: :active
     end
   end
-  aasm do
-  end
+
   has_many :comments, dependent: :destroy
   has_many :requests, dependent: :destroy
   belongs_to :user
